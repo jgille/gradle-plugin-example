@@ -1,0 +1,8 @@
+apply plugin: 'groovy'
+
+dependencies {
+    compile gradleApi()
+
+    testCompile gradleTestKit(),
+            'org.junit.jupiter:junit-jupiter-engine:5.0.2'
+}

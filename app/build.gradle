@@ -1,0 +1,27 @@
+apply plugin: "io.jgille.gradle.docker"
+apply plugin: 'com.github.johnrengelman.shadow'
+
+docker {
+    dockerFile = "app/Dockerfile"
+    context = "app"
+    imageName = "sample-app"
+    pushCommand = "gcloud docker --push"
+}
+
+shadowJar {
+    classifier = null
+    version = null
+    mergeServiceFiles()
+}
+
+jar {
+    manifest {
+        attributes(
+                "Main-Class": "io.jgille.gpe.app.App"
+        )
+    }
+}
+
+dependencies {
+    compile 'io.dropwizard:dropwizard-core:1.2.2'
+}

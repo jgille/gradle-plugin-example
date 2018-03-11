@@ -1,0 +1,4 @@
+rootProject.name = 'gradle-plugin-example'
+include 'app'
+include 'buildSrc'
+
