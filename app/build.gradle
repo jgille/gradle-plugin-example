@@ -1,11 +1,11 @@
-apply plugin: "io.jgille.gradle.docker"
+apply plugin: 'io.jgille.gradle.docker-plugin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 docker {
     dockerFile = "app/Dockerfile"
     context = "app"
-    imageName = "sample-app"
-    pushCommand = "gcloud docker --push"
+    pushCommand = "gcloud docker -- push"
+    repository = "eu.gcr.io/jgille"
 }
 
 shadowJar {

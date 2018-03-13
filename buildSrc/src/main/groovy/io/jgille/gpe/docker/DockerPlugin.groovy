@@ -6,20 +6,20 @@ import org.gradle.api.Project
 class DockerPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
-        def extension = project.extensions.create('docker', DockerPluginExtension)
-
         if (project.hasProperty("dryRun")) {
             System.setProperty("dryRun", "true")
         }
+
+        def dockerExtension = project.extensions.create('docker', DockerPluginExtension, project)
 
         project.tasks.create('dockerBuild', DockerBuild) {
             setGroup 'Docker'
             setDescription 'Build a Docker image'
 
             doFirst {
-                tag = "$extension.imageName:$project.version"
-                dockerFile = extension.dockerFile
-                context = extension.context
+                tag = "$dockerExtension.imageName:$project.version"
+                dockerFile = dockerExtension.dockerFile
+                context = dockerExtension.context
             }
         }
 
@@ -28,9 +28,9 @@ class DockerPlugin implements Plugin<Project> {
             setDescription 'Push a Docker image'
 
             doFirst {
-                tag = "$extension.imageName:$project.version"
-                repository = project.property("dockerRepository")
-                pushCommand = extension.pushCommand
+                tag = "$dockerExtension.imageName:$project.version"
+                repository = dockerExtension.repository
+                pushCommand = dockerExtension.pushCommand
             }
         }
 
