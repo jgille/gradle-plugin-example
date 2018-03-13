@@ -1,6 +1,6 @@
 # Gradle Plugin Examples
 
-This project contains some example on how you can write custom Gradle plugins to simplify your CI/CD pipelines.
+This project contains some examples on how you can write custom Gradle plugins to simplify your CI/CD pipelines.
 
 There is a module called app that contains a dead simple Dropwizard service. There is also a module named buildSrc,
 which is the naming convention when you have Gradle plugins in the same project, that contains a couple of Gradle
