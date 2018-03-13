@@ -10,7 +10,7 @@ class KubernetesPluginExtension {
     String variablesFile
 
     KubernetesPluginExtension(Project project) {
-        context = project.property("context")
-        configDir = project.property("configDir")
+        context = project.properties["context"]
+        configDir = project.properties["configDir"]
     }
 }

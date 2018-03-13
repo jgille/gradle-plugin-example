@@ -11,6 +11,7 @@ buildscript {
 }
 
 group 'io.jgille.gradle-plugin-example'
+version '0.1-SNAPSHOT'
 
 apply plugin: 'idea'
 
@@ -19,6 +20,9 @@ subprojects {
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+    group 'io.jgille.gradle-plugin-example'
+    version '0.1-SNAPSHOT'
 
     repositories {
         jcenter()
