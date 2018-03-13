@@ -1,8 +1,7 @@
-FROM openjdk:8
+FROM java:8-jre
 
 WORKDIR /
 
-COPY config/app.yml config/app.yml
 COPY build/libs/app.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar", "server", "config/app.yml"]

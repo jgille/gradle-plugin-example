@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service
+  namespace: ${namespace}
+spec:
+  selector:
+    app: ${serviceName}
+  ports:
+    - name: service
+      protocol: TCP
+      port: 8080
+    - name: admin
+      protocol: TCP
+      port: 8081
+
+  type: NodePort

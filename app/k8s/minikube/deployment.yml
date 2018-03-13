@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ${serviceName}
+  namespace: ${namespace}
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  replicas: 1
+  progressDeadlineSeconds: 120
+  template:
+    metadata:
+      name: ${serviceName}
+      labels:
+        app: ${serviceName}
+    spec:
+      volumes:
+        - name: app-config
+          secret:
+            secretName: app-config
+      containers:
+        - name: ${serviceName}
+          image: ${serviceName}:${serviceVersion}
+
+          ports:
+          - name: service-port
+            containerPort: 8080
+          - name: management-port
+            containerPort: 8081
+
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: management-port
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: management-port
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 11
+
+          imagePullPolicy: IfNotPresent
+
+          volumeMounts:
+          - name: app-config
+            readOnly: true
+            mountPath: config/
+
+          env:
+          - name: SERVICE_VERSION
+            value: "${serviceVersion}"

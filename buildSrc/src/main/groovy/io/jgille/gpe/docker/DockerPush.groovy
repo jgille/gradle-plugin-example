@@ -11,7 +11,7 @@ class DockerPush extends DefaultTask {
     String pushCommand
 
     @TaskAction
-    def buildImage() {
+    def pushImage() {
         Shell.sh("docker tag $tag $repository/$tag")
         Shell.sh("$pushCommand $repository/$tag")
     }

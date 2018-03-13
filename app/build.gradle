@@ -1,11 +1,16 @@
 apply plugin: 'io.jgille.gradle.docker-plugin'
+apply plugin: 'io.jgille.gradle.kubernetes-plugin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 docker {
     dockerFile = "app/Dockerfile"
     context = "app"
-    pushCommand = "gcloud docker -- push"
     repository = "eu.gcr.io/jgille"
+}
+
+kubernetes {
+    templateFiles = ["namespace.yml", "secret.yml", "deployment.yml", "service.yml"]
+    variablesFile = "variables.properties"
 }
 
 shadowJar {
